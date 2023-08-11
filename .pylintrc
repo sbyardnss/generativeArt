@@ -1,0 +1,9 @@
+[FORMAT] 
+  good-names=i,j,ex,pk
+
+[MESSAGES CONTROL]
+  disable=broad-except,missing-class-docstring,no-self-use,abstract-method
+
+[MASTER]
+  disable=C0114, F0002, E0013, W0401, W0614, W0611, E0602
+
