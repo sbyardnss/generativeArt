@@ -1,10 +1,10 @@
-import uuid
 import random
 import tkinter as tk
 from turtle import *
 from svg_turtle import SvgTurtle
-from PIL import Image
-# turtle.setup(1000, 1000)
+from theme import set_theme
+from create_file import create_file
+
 width = 1000
 height = 1000
 setup(width, height)
@@ -61,14 +61,5 @@ tracer(False)
 # dont go past 7 levels
 tiling(0, 0, 400, 5, 'diagonal')
 tracer(True)
-file_name = uuid.uuid1()
-getscreen().getcanvas().postscript(file=f'output/tiling/tiling{file_name}.eps')
-# ps_image = Image.open('output/tiling80927ee0-388d-11ee-9a50-8c859040d697.ps')
-# ps_image.save('output/tiling80927ee0-388d-11ee-9a50-8c859040d697.png')
+create_file()
 exitonclick()
-# def write_file(function, file, w, h):
-#     t = SvgTurtle(w, h)
-#     function(t)
-#     t.save_as(file)
-
-# write_file(tiling(0,0,400,5, 'diagonal'), f'{file_name}.svg', width, height)
