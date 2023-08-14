@@ -28,8 +28,6 @@ set_theme(hide_turtle=False, speed_value='fastest', tracer_value=1)
 def draw_lines():
     # first line will be 100 wide
     # starting at -50
-    penup()
-    goto(-50, 400)
     # length of full line for loop
     x_half_length = 50
 
@@ -40,7 +38,9 @@ def draw_lines():
     y_length = 10
 
     # vertical positioning of lines starting at 400
-    y_position = 400
+    y_position = 300
+    penup()
+    goto(-50, y_position)
     for i in range(10):
         for x in range(-x_half_length, x_half_length, x_size):
             # create ten cells
@@ -48,6 +48,7 @@ def draw_lines():
             pendown()
             goto(x+x_size, y_position)
             goto(x-x_size, y_position-y_length)
+            goto(-x, y_position-y_length)
             penup()
         # increase y_position, y_length, x_length, x_half_length
         y_position -= y_length
