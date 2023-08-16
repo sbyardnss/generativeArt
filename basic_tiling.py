@@ -61,5 +61,5 @@ tracer(False)
 # dont go past 7 levels
 tiling(0, 0, 400, 5, 'diagonal')
 tracer(True)
-create_file()
+create_file('tiling')
 exitonclick()

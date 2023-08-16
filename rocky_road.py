@@ -2,10 +2,10 @@ from turtle import *
 import random
 import math
 from theme import set_theme
+from create_file import create_file
 
-
-set_theme(hide_turtle=False, speed_value='fastest', tracer_value=1)
-
+# set_theme(hide_turtle=False, speed_value='fast', tracer_value=1)
+set_theme()
 
 # def draw_lines():
 #     speed(0)
@@ -83,38 +83,67 @@ yi = 40
 def draw_lines(x_init, y_init):
     vp = pt(0, 1000)
     penup()
-    # goto start location
-    s_point = pt(-200, 0)
-    goto(-200, 0)
-    pendown()
-    # find initial point of turtle (tr_init) and angle to vanishing point
-    angle_start = findAngle(s_point, vp)
-    left(angle_start)
 
-    # draw left of box upward
-
-    forward(y_init)
-    top_left_pt = position()
-
-    # if new x_length not defined, draw top of box with x_init and 
-    # define to new variable (only one iteration with x_init)
-    new_angle = angle_start - 360
-    right(new_angle)
-    forward(x_init)
-    top_right_pt = position()
-    # print(top_right_pt)
-    distance_between_tl_tr = distance(top_left_pt, top_right_pt)
+    # define point for beginning of row
+    s_point = pt(0, 100)
     
-    # turn right and draw right side
-    print(top_right_pt[0])
-    new_angle = findAngle(pt(vp.x, vp.y),pt(top_right_pt[0], top_right_pt[1]))
-    right(-new_angle)
-    print(s_point.x)
-    while position()[1] > s_point.y:
-        forward(10)
+    # define first vertical distance
+    goto(0, 100)
+    pendown()
 
-    # turn right and draw bottom
-    goto(s_point.x, s_point.y)
+    # changeable start point for each cell
+    start_for_cell = s_point
+    
+    # other starting corners
+    next_distance = y_init
+    for i in range(60):
+        fc = ["#fa6edb", "#d882f5", '#af94ff', '#80a2ff', '#4aadff', '#00b5ff', '#00baf0', '#00bddd', '#35bfca', '#5bbfb9', "#fa6edb", "#d882f5", '#af94ff', '#80a2ff', '#4aadff', '#00b5ff', '#00baf0', '#00bddd', '#35bfca', '#5bbfb9']
+        for i in range(10):
+            begin_fill()
+            pendown()
+            # find initial point of turtle (tr_init) and angle to vanishing point
+            angle_start = findAngle(pt(position()[0], position()[1]), vp)
+            left(angle_start)
+
+            # draw left of box upward
+
+            # travelling up left side
+            forward(next_distance)
+            top_left_pt = position()
+
+            # if new x_length not defined, draw top of box with x_init and 
+            # define to new variable (only one iteration with x_init)
+            new_angle = angle_start - 360
+            right(new_angle)
+
+            # travelling right across top
+            forward(x_init)
+            top_right_pt = position()
+            # print(top_right_pt)
+            distance_between_tl_tr = distance(top_left_pt, top_right_pt)
+            
+            # turn right and draw right side
+            new_angle = findAngle(pt(vp.x, vp.y),pt(top_right_pt[0], top_right_pt[1]))
+            right(-new_angle)
+            # travelling down right side
+            end_fill()
+            fillcolor(fc[i])
+            while position()[1] > start_for_cell.y and distance(top_right_pt, (position()[0], position()[1])) < 300:
+                forward(10)
+            next_cell_start = pt(xcor(), ycor())
+            next_distance = distance(top_right_pt, (next_cell_start.x, next_cell_start.y))
+            # turn right and draw bottom
+            goto(start_for_cell.x, start_for_cell.y)
+            start_for_cell = next_cell_start
+            penup()
+            goto(start_for_cell.x, start_for_cell.y)
+            right(new_angle)
+        next_distance = y_init * 1.2
+        # go to next starting point
+        penup()
+        goto(s_point.x, s_point.y)
+        left(356)
+        forward(next_distance)
 
     
 
@@ -124,4 +153,5 @@ def draw_lines(x_init, y_init):
 
 draw_lines(xi, yi)
 tracer(True)
+create_file('wave')
 exitonclick()
