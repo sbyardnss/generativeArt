@@ -3,7 +3,7 @@ import random
 from create_file import create_file
 from theme import set_theme
 
-set_theme()
+set_theme(canvas_color='gray')
 fc = ["#fa6edb", "#d882f5", '#af94ff', '#80a2ff', '#4aadff', '#00b5ff', '#00baf0', '#00bddd', '#35bfca', '#5bbfb9', "#fa6edb", "#d882f5", '#af94ff', '#80a2ff', '#4aadff', '#00b5ff', '#00baf0', '#00bddd', '#35bfca', '#5bbfb9']
 
 def draw_circle(size):
@@ -23,24 +23,30 @@ def draw_triangle(size):
 def make_shapes(size):
     penup()
     # goto(-100, 100)
-    for y in range(-size*9+size, (size*10)-1, size):
-        for x in range(-size*9-size, (size*10)-1, size):
-            # goto(x,y)
+    for y in range(400, -400, -size):
+        for x in range(-400, 400, size):
             num = random.randint(0, 3)
             begin_fill()
             if num == 0:
-                goto(x+size*.5*.5+.5*size,y)
+                goto(x+size*.5,y)
                 draw_circle(size)
             elif num ==1:
-                goto(x+size*.5*.5,y)
+                goto(x,y)
                 draw_square(size)
             else:
-                goto(x+size*.5*.5,y-.1*size)
+                goto(x,y-.1*size)
                 draw_triangle(size)
-            fillcolor(fc[num])
+            # fillcolor(fc[num])
+            if num ==2:
+                fillcolor('maroon')
+            elif num ==1:
+                fillcolor('teal')
+            else:
+                fillcolor('black')
             end_fill()
 make_shapes(40)
 
 
 tracer(True)
+create_file('shapes')
 exitonclick()
