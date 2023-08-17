@@ -153,5 +153,5 @@ def draw_lines(x_init, y_init):
 
 draw_lines(xi, yi)
 tracer(True)
-create_file('wave')
+# create_file('wave')
 exitonclick()
